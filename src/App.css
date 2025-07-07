@@ -1,5 +1,22 @@
 .App {
   text-align: center;
+  position: relative;
+}
+
+/* Style global pour les conteneurs principaux de chaque page */
+.page-container {
+  margin-top: 80px; /* Marge pour compenser le header fixe */
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Ajustement des marges pour les petits écrans */
+@media screen and (max-width: 768px) {
+  .page-container {
+    margin-top: 60px; /* Marge réduite pour les petits écrans */
+    padding: 15px;
+  }
 }
 
 .App-logo {

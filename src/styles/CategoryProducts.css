@@ -1,0 +1,144 @@
+/* Container principal */
+.category-products-container {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Barre de recherches et filtre */
+.filtrage {
+  background-color: #f4f4f4;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
+.search-bar input {
+  padding: 8px;
+  width: 300px;
+}
+
+.filters select,
+.filters input {
+  padding: 8px;
+  margin: 0 5px;
+}
+
+/* Pour les petits écrans */
+@media(max-width:768px) {
+  .filtrage {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+
+  .search-bar input {
+    padding: 8px;
+    width: 190px;
+  }
+}
+
+/* Message de Bienvenue */
+.welcome {
+  background-color: #f4f4f4;
+  align-items: center;
+  width: 90%;
+  align-self: center;
+  margin-left: 50px;
+  padding-bottom: 10px;
+}
+
+@media (max-width:768px) {
+  .welcome {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+.welcome h2 {
+  padding: 30px;
+}
+
+.welcome p {
+  text-align: start;
+  margin-left: 30px;
+}
+
+/* Grille d'affichage personnalisée */
+.custom-water-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 2fr);
+  gap: 10px;
+  margin: 20px;
+  justify-items: center;
+  width: 90%;
+}
+
+/* Styles responsives pour la grille */
+@media screen and (max-width: 768px) {
+  .custom-water-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 10px;
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .custom-water-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+
+/* États de chargement et d'erreur */
+.loading-container, .error-container, .no-products-container {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #f4f4f4;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.back-home-btn {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.back-home-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .category-header h1 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .category-products-container {
+    padding: 10px;
+  }
+}

@@ -1,0 +1,70 @@
+.title-banner {
+  background-color: skyblue;
+  padding: 100px 20px;
+  text-align: center;
+  margin-top: 0; /* Suppression de la marge maintenant que le header est sticky */
+  position: relative;
+  z-index: 1;
+}
+
+/* Ajustement pour les petits écrans */
+@media screen and (max-width: 768px) {
+  .title-banner {
+    margin-top: 0; /* Suppression de la marge pour coller au header */
+    padding: 20px 15px; /* Padding équilibré */
+    border-top: none; /* Suppression de toute bordure qui pourrait créer un espace */
+  }
+  
+  /* Style spécifique pour la vue mobile */
+  .title-banner.mobile-view {
+    margin-top: 0; /* Pas de marge négative nécessaire avec sticky */
+    padding-top: 20px; /* Padding normal */
+    background-image: linear-gradient(to bottom, skyblue, skyblue); /* Même couleur que le header */
+  }
+  
+  .title-banner h1 {
+    font-size: 28px; /* Taille de police réduite */
+    margin-top: 0; /* Suppression de la marge supérieure */
+    padding-top: 20px; /* Padding au lieu de marge */
+  }
+  
+  .title-banner p {
+    font-size: 14px; /* Taille de police réduite */
+  }
+}
+
+.title-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title-banner h1 {
+  color: white;
+  font-size: 40px;
+  margin: 0 0 10px 0;
+  font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.title-banner p {
+  color: white;
+  font-size: 16px;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive styles for title banner */
+@media (max-width: 768px) {
+  .title-banner {
+    margin-top: 60px;
+    padding: 80px 15px;
+  }
+  
+  .title-banner h1 {
+    font-size: 30px;
+  }
+  
+  .title-banner p {
+    font-size: 14px;
+  }
+}

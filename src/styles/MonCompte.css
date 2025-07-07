@@ -1,0 +1,166 @@
+.mon-compte-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.mon-compte-container h1 {
+  color: #0056b3;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 32px;
+}
+
+.account-overview {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  background-color: #0056b3;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-right: 20px;
+}
+
+.user-details h2 {
+  margin: 0 0 5px 0;
+  color: #333;
+  font-size: 24px;
+}
+
+.user-details p {
+  margin: 0;
+  color: #666;
+  font-size: 16px;
+}
+
+.account-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.account-section {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.account-section:hover {
+  transform: translateY(-5px);
+}
+
+.account-section h3 {
+  color: #0056b3;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 18px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.section-content {
+  color: #333;
+}
+
+.section-content p {
+  margin: 10px 0;
+}
+
+.section-content strong {
+  font-weight: 600;
+  color: #555;
+}
+
+.edit-btn, .view-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.edit-btn:hover, .view-btn:hover {
+  background-color: #003d82;
+  color: white;
+}
+
+.account-actions {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.logout-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: #c82333;
+  color: white;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .mon-compte-container {
+    padding: 30px 15px;
+  }
+  
+  .account-sections {
+    grid-template-columns: 1fr;
+  }
+  
+  .user-info {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .avatar {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mon-compte-container h1 {
+    font-size: 24px;
+  }
+  
+  .account-section {
+    padding: 15px;
+  }
+  
+  .edit-btn, .view-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

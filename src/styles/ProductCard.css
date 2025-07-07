@@ -1,0 +1,105 @@
+/* Styles selon le design original */
+.water-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+  width: 200px;
+  margin-bottom: 20px;
+  object-fit: contain;
+}
+
+.water-item:hover {
+  transform: scale(1.05); /* Légère agrandissement au survol */
+}
+
+.water-item img {
+  width: 100%;
+  height: auto;
+}
+
+.water-info {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  background: rgba(0, 0, 0, 0.1); /* le fond noir */
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.additional-info {
+  font-size: 14px;
+  color: black;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+  left: 20px;
+}
+
+.inisible-text {
+  visibility: hidden;
+}
+
+.water-info h3 {
+  color: black;
+}
+
+.water-info p {
+  color: #333;
+}
+
+.buy-now-btn {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  border: none;
+}
+
+.buy-now-btn:hover {
+  background-color: #218838;
+}
+
+.prix-plus {
+  font-size: 14px;
+  color: black;
+  font-weight: bold;
+  margin-top: 5px;
+  left: 2px;
+}
+
+.prix {
+  visibility: hidden;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+  .water-item {
+    width: 180px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .water-item {
+    width: 160px;
+  }
+  
+  .water-info {
+    bottom: 15px;
+    left: 15px;
+    padding: 8px;
+  }
+  
+  .buy-now-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}

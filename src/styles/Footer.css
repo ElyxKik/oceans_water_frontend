@@ -1,0 +1,119 @@
+footer {
+  background-color: gray;
+  padding: 25px;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footer-text {
+  color: black;
+}
+
+.bas-depage-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+.bas-depage-footer-bloc {
+  flex: 1;
+  min-width: 250px;
+  margin: 10px;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+.bas-depage-footer-bloc h3 {
+  color: white;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.bas-depage-footer-bloc ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bas-depage-footer-bloc li {
+  margin-bottom: 8px;
+  color: #f0f0f0;
+}
+
+.bas-depage-footer-bloc a {
+  color: #f0f0f0;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.bas-depage-footer-bloc a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.contact-section {
+  padding: 20px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.contact-section h2 {
+  color: white;
+  margin-bottom: 15px;
+}
+
+.contact-info {
+  margin-top: 10px;
+}
+
+.social-links {
+  margin-top: 15px;
+}
+
+.social-links h3 {
+  color: white;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.social-links a {
+  margin: 0 10px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.social-links img {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.3s ease;
+}
+
+.social-links img:hover {
+  transform: scale(1.1);
+}
+
+/* logo facebook uniquement */
+.social-links .fb-logo {
+  width: 32px;
+  height: 32px;
+}
+
+footer b {
+  display: block;
+  margin-top: 20px;
+  color: white;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .bas-depage-footer {
+    flex-direction: column;
+  }
+  
+  .bas-depage-footer-bloc {
+    margin: 10px 0;
+  }
+}
