@@ -41,6 +41,8 @@ header.scrolled {
   min-height: 60px; /* Hauteur minimale pour garantir que tous les éléments sont visibles */
 }
 
+/* Les styles du menu de navigation desktop ont été supprimés */
+
 .header-bottom {
   display: flex;
   align-items: center;
@@ -126,10 +128,31 @@ header.scrolled {
 .header-icons {
   display: flex;
   align-items: center;
-  height: 100%;
   gap: 15px;
-  flex-shrink: 0;
-  margin: auto 0;
+}
+
+/* Styles pour le conteneur de l'icône du panier */
+.cart-icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Styles pour le compteur du panier */
+.cart-counter {
+  position: absolute;
+  top: -5px;
+  right: -2px;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .icon-link {
@@ -157,6 +180,7 @@ header.scrolled {
   object-fit: contain;
 }
 
+/* Menu Icon - Hamburger */
 .menu-icon {
   display: flex;
   flex-direction: column;
@@ -164,25 +188,53 @@ header.scrolled {
   height: 24px;
   width: 30px;
   cursor: pointer;
-  padding: 8px;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
+  padding: 5px;
+  position: relative;
+  z-index: 1001;
+  transition: all 0.3s ease;
 }
 
-.menu-icon:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+/* Taille augmentée pour le menu hamburger sur desktop */
+@media screen and (min-width: 769px) {
+  .menu-icon {
+    height: 28px;
+    width: 35px;
+    padding: 6px;
+  }
+  
+  .menu-icon span {
+    height: 4px;
+  }
 }
 
 .menu-icon span {
   display: block;
-  width: 30px;
-  height: 4px;
-  background-color: black;
+  width: 100%;
+  height: 3px;
+  background-color: #333;
   margin: 2px 0;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* Animation pour l'icône hamburger */
+.menu-icon.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.menu-icon.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-icon.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 /* Styles responsives pour le header */
+/* Le menu hamburger est visible sur toutes les tailles d'écran */
+
 @media screen and (max-width: 768px) {
+  
   header {
     padding: 3px 10px;
     min-height: 50px;
@@ -260,32 +312,111 @@ header.scrolled {
   }
 }
 
-/* Dropdown Menu */
-#dropdown-menu {
-  position: absolute;
-  top: 100px;
-  right: 20px;
+/* Menu Mobile */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 80%;
+  max-width: 320px;
+  height: 100vh;
   background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  border-radius: 8px;
-  z-index: 100;
-  transition: all 0.3s ease;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: right 0.3s ease;
+  padding: 80px 20px 20px;
+  overflow-y: auto;
 }
 
-#dropdown-menu.hidden {
-  display: none;
+.mobile-menu.active {
+  right: 0;
 }
 
-#dropdown-menu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+/* Overlay pour le menu mobile */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
 }
 
-#dropdown-menu li {
-  margin-bottom: 10px;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.mobile-menu a {
+  color: #333;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  display: block;
+  padding: 8px 0;
+  transition: all 0.2s ease;
   position: relative;
+}
+
+.mobile-menu a:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: skyblue;
+  transition: width 0.3s ease;
+}
+
+.mobile-menu a:hover:after {
+  width: 30px;
+}
+
+.mobile-menu a:hover {
+  color: skyblue;
+  transform: translateX(5px);
+}
+
+.mobile-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-menu li {
+  margin-bottom: 15px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+/* Style pour le bouton de fermeture du menu */
+.close-menu-button {
+  margin-top: 20px;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 20px;
+}
+
+.close-menu-button button {
+  background-color: skyblue;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.close-menu-button button:hover {
+  background-color: #4ba3c7;
 }
 
 #dropdown-menu li a, 
@@ -405,5 +536,98 @@ header.scrolled {
   
   .icon-link {
     padding: 6px;
+  }
+}
+
+/* Styles pour le menu utilisateur */
+.user-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-greeting {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  display: none; /* Masqué sur mobile par défaut */
+}
+
+.user-dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 4px;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.user-dropdown:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-content a,
+.dropdown-content button {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-content a:hover,
+.dropdown-content button:hover {
+  background-color: #f1f1f1;
+}
+
+.logout-btn {
+  border-top: 1px solid #eee;
+  color: #dc3545 !important;
+}
+
+.logout-btn:hover {
+  background-color: #f8f9fa !important;
+}
+
+/* Responsive pour le menu utilisateur */
+@media (min-width: 769px) {
+  .user-greeting {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .user-menu {
+    gap: 5px;
+  }
+  
+  .dropdown-content {
+    min-width: 160px;
+    right: -10px;
+  }
+  
+  .dropdown-content a,
+  .dropdown-content button {
+    padding: 10px 12px;
+    font-size: 13px;
   }
 }

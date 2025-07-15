@@ -27,13 +27,29 @@ const CategoryProducts = () => {
         const categoriesResponse = await productService.getAllCategories();
         const categories = categoriesResponse.results || [];
         
-        // Trouver la catégorie correspondante (insensible à la casse)
+        // Fonction pour normaliser les chaînes (supprimer accents et mettre en minuscules)
+        const normalizeString = (str) => {
+          return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        };
+        
+        // Trouver la catégorie correspondante (insensible à la casse et aux accents)
         const matchedCategory = categories.find(
-          cat => cat.nom.toLowerCase() === categoryName.toLowerCase()
+          cat => normalizeString(cat.nom) === normalizeString(categoryName)
         );
         
         if (!matchedCategory) {
-          throw new Error(`Catégorie "${categoryName}" non trouvée`);
+          // Si aucune correspondance exacte, essayer de trouver une correspondance partielle
+          const similarCategory = categories.find(
+            cat => normalizeString(cat.nom).includes(normalizeString(categoryName)) || 
+                   normalizeString(categoryName).includes(normalizeString(cat.nom))
+          );
+          
+          if (similarCategory) {
+            console.log(`Catégorie similaire trouvée: ${similarCategory.nom} au lieu de ${categoryName}`);
+            return similarCategory;
+          }
+          
+          throw new Error(`Catégorie "${categoryName}" non trouvée. Catégories disponibles: ${categories.map(c => c.nom).join(', ')}`);
         }
         
         setCategory(matchedCategory);
@@ -42,20 +58,32 @@ const CategoryProducts = () => {
         const productsResponse = await productService.getByCategory(matchedCategory.id);
         const productsData = productsResponse.results || [];
         
-        // Transformer les produits au format attendu par le frontend
+        // Utiliser directement les produits de l'API avec les objets complets
         const transformedProducts = productsData.map(product => ({
           id: product.id,
-          marque: product.marque || 'Non spécifiée',
+          marque: product.marque?.nom || 'Non spécifiée',
+          marqueObj: product.marque,
+          categorie: product.categorie,
           titre: product.nom,
-          description: `${product.unite || 'unité'}`,
+          description: product.description || `${product.unite || 'unité'}`,
           prix: parseFloat(product.prix),
+          stock: parseInt(product.stock, 10),
           image: product.image && product.image.startsWith('http') ? product.image : 
                  product.image ? `http://localhost:8000${product.image}` : 
                  `https://via.placeholder.com/300x200/0056b3/ffffff?text=${encodeURIComponent(product.nom)}`
         }));
         
-        // Extraire les marques uniques
-        const uniqueMarques = [...new Set(transformedProducts.map(p => p.marque).filter(m => m && m !== 'Non spécifiée'))];
+        // Extraire les marques uniques (objets complets)
+        const uniqueMarques = [];
+        const marqueIds = new Set();
+        
+        productsData.forEach(product => {
+          if (product.marque && !marqueIds.has(product.marque.id)) {
+            marqueIds.add(product.marque.id);
+            uniqueMarques.push(product.marque.nom);
+          }
+        });
+        
         setMarques(uniqueMarques.sort());
         
         setProducts(transformedProducts);

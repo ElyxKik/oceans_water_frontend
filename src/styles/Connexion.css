@@ -1,101 +1,114 @@
-.connexion-container {
-  width: 90%;
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 30px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 50px;
-}
+/* Styles pour la page de connexion, adaptés pour React */
 
-.connexion-container h1 {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #333;
-}
-
-.error-message {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.connexion-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-group label {
-  font-weight: bold;
-  color: #333;
-}
-
-.form-group input {
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
-
-.connexion-btn {
-  padding: 12px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
-  margin-top: 10px;
-}
-
-.connexion-btn:hover {
-  background-color: #0056b3;
-}
-
-.connexion-links {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.connexion-links a {
-  color: #007bff;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.connexion-links a:hover {
-  color: #0056b3;
-  text-decoration: underline;
-}
-
-@media (max-width: 576px) {
-  .connexion-container {
-    width: 95%;
-    padding: 20px;
-  }
-  
-  .connexion-links {
-    flex-direction: column;
-    gap: 10px;
+.connexion-page-container {
+    display: flex;
+    justify-content: center;
     align-items: center;
-  }
+    padding: 40px 20px;
+    background-color: #f0f0f0;
+    min-height: 80vh; /* Pour s'assurer que la page prend de la hauteur */
 }
+
+.connexion-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px;
+    overflow: hidden; /* Pour gérer la transition entre les formulaires */
+}
+
+.connexion-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.connexion-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.connexion-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.connexion-container button:hover {
+    background-color: #0056b3;
+}
+
+.connexion-container p {
+    margin: 15px 0 0 0;
+    font-size: 0.9rem;
+    color: #333;
+    text-align: center;
+}
+
+.connexion-container .link-text {
+    color: #007BFF;
+    cursor: pointer;
+}
+
+.connexion-container .link-text:hover {
+    text-decoration: underline;
+}
+
+.form-step {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.form-step.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Messages d'erreur et de succès */
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* États de chargement */
+.connexion-container button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.connexion-container button:disabled:hover {
+    background-color: #6c757d;
+}
+

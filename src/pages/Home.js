@@ -33,8 +33,11 @@ const Home = () => {
           titre: product.nom,
           description: `${product.unite || 'unité'}`,
           prix: parseFloat(product.prix),
+          stock: parseInt(product.stock, 10), // Stock converti en entier
           image: product.image || `https://via.placeholder.com/300x200/0056b3/ffffff?text=${product.nom}`
         }));
+        
+        console.log('Produits avec stock:', transformedProducts);
         
         // Prendre les 6 premiers produits ou moins si pas assez
         const featured = transformedProducts.slice(0, 6);
@@ -217,7 +220,7 @@ const Home = () => {
 
         <a href="#apropos" className="en-savoirplus">En savoir plus</a>
 
-        <Link to="/shop" className="commander-ici">Commander ici</Link>
+        <Link to="/boutique" className="commander-ici">Commander ici</Link>
 
         <p className="bieres-jus"> Vos pouvez aussi acheter vos jus et vos bieres preferés </p>
 
@@ -341,34 +344,7 @@ const Home = () => {
         </section>
       </section>
 
-      {/* Section Contact */}
-      <section id="Nous Contacter" className="contact-section">
-        <h2>Contactez-nous</h2>
-        <div className="contact-container">
-          <div className="contact-info">
-            <h3>Nos coordonnées</h3>
-            <p><strong>Adresse:</strong> 123 Avenue de l'Eau, Kinshasa</p>
-            <p><strong>Téléphone:</strong> +243 123 456 789</p>
-            <p><strong>Email:</strong> info@oceanswater.com</p>
-            <p><strong>Horaires:</strong> Lun-Sam: 8h-18h</p>
-          </div>
-          <div className="contact-form">
-            <h3>Envoyez-nous un message</h3>
-            <form>
-              <div className="form-group">
-                <input type="text" placeholder="Votre nom" required />
-              </div>
-              <div className="form-group">
-                <input type="email" placeholder="Votre email" required />
-              </div>
-              <div className="form-group">
-                <textarea placeholder="Votre message" rows="4" required></textarea>
-              </div>
-              <button type="submit" className="submit-btn">Envoyer</button>
-            </form>
-          </div>
-        </div>
-      </section>
+      {/* La section Contact a été supprimée */}
     </div>
   );
 };

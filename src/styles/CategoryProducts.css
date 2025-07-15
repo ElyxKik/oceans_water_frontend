@@ -87,10 +87,14 @@
 
 @media screen and (max-width: 480px) {
   .custom-water-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
     width: 100%;
     margin: 10px 0;
+  }
+  
+  .water-item {
+    width: 140px;
   }
 }
 

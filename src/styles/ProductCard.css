@@ -1,12 +1,13 @@
 /* Styles selon le design original */
 .water-item {
   position: relative;
-  overflow: hidden;
+  background-color: transparent;
   border-radius: 8px;
   transition: transform 0.3s ease-in-out;
   width: 200px;
   margin-bottom: 20px;
   object-fit: contain;
+  box-sizing: border-box;
 }
 
 .water-item:hover {
@@ -15,18 +16,38 @@
 
 .water-item img {
   width: 100%;
-  height: auto;
+  height: 100%; /* occupe toute la hauteur du conteneur */
+  object-fit: cover; /* remplit tout en coupant si nécessaire */
 }
 
-.water-info {
+.product-overlay {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; /* occupe toute la hauteur */
+  width: 100%;
+  height: 100%;
   color: white;
-  background: rgba(0, 0, 0, 0.1); /* le fond noir */
-  padding: 10px;
+  background: rgba(0, 0, 0, 0.1); /* voile semi-transparent */
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+.action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+
 
 .additional-info {
   font-size: 14px;
@@ -43,29 +64,88 @@
   visibility: hidden;
 }
 
-.water-info h3 {
+.product-overlay h3 {
   color: black;
 }
 
-.water-info p {
+.product-overlay p {
   color: #333;
+}
+
+.prix {
+  font-weight: bold;
+  font-size: 13px;
+  margin: 0;
+  color: #333;
+  white-space: nowrap;
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .buy-now-btn {
   display: inline-block;
-  padding: 10px 15px;
+  padding: 6px 10px;
   background-color: #28a745;
   color: white;
   text-decoration: none;
-  border-radius: 5px;
-  margin-top: 10px;
+  border-radius: 4px;
+  margin: 0;
   transition: background-color 0.3s;
-  cursor: pointer;
   border: none;
+  cursor: pointer;
+  font-size: 11px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  min-width: fit-content;
 }
 
 .buy-now-btn:hover {
   background-color: #218838;
+}
+
+.out-of-stock-btn {
+  display: inline-block;
+  padding: 6px 10px;
+  background-color: #dc3545;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  margin: 0;
+  font-size: 11px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  min-width: fit-content;
+  opacity: 0.9;
+}
+
+/* Styles pour l'indicateur de stock */
+.stock-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 3px 5px;
+  font-size: 10px;
+  text-align: center;
+  color: white;
+  border-radius: 0 0 8px 8px;
+  font-weight: bold;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.stock-none {
+  background-color: rgba(220, 53, 70, 0.422); /* Rouge */
+}
+
+.stock-low {
+  background-color: rgba(255, 193, 7, 0.477); /* Jaune */
+  color: #333;
+}
+
+.stock-available {
+  background-color: rgba(40, 167, 70, 0.456); /* Vert */
 }
 
 .prix-plus {
@@ -92,10 +172,12 @@
     width: 160px;
   }
   
-  .water-info {
-    bottom: 15px;
-    left: 15px;
-    padding: 8px;
+  .product-overlay {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0;
   }
   
   .buy-now-btn {

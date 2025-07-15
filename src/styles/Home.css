@@ -2,13 +2,13 @@
 .welcome {
   background-color: #f4f4f4;
   align-items: center;
-  width: 90%;
+  width: 100%; /* Occupe toute la largeur */
   align-self: center;
-  margin-left: 50px;
-  margin-top: 20px;
+  margin: 20px 0 0 0; /* Supprime les marges latérales */
   padding: 20px 0;
   position: relative;
   z-index: 1;
+  box-sizing: border-box; /* Assure que le padding ne crée pas de décalage */
 }
 
 .welcome h2 {
@@ -61,19 +61,20 @@
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   text-align: left;
   color: #218838;
-  margin-left: 30px;
-  margin-bottom: 15px;
+  margin: 0 0 15px 0; /* Supprime la marge gauche */
+  padding: 0 15px; /* Utilise le padding pour l'espacement interne */
 }
 
 .bieres-jus-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Grille responsive */
   gap: 15px;
-  margin: 20px 30px;
-  justify-items: center;
+  margin: 0 auto; /* Centre la grille */
+  padding: 0 15px; /* Espace sur les côtés */
   width: 100%;
   max-width: 1200px;
-  align-items: center;
+  justify-items: center;
+  box-sizing: border-box;
 }
 
 .bieres-jus-item {
@@ -174,6 +175,11 @@
 }
 
 /* Featured Products Grid */
+
+.featured-products-grid, .bieres-jus-grid {
+  padding: 0;
+}
+
 .custom-water-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -205,10 +211,6 @@
   object-fit: cover;
 }
 
-.water-info {
-  padding: 15px;
-  text-align: center;
-}
 
 .water-info h3 {
   margin-bottom: 5px;
@@ -426,92 +428,19 @@
 
 @media (max-width: 480px) {
   .custom-water-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
   
   .bieres-jus-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     width: 100%;
-  }
-}
-
-/* Styles pour la section Contact */
-.contact-section {
-  padding: 60px 20px;
-  background-color: #f5f5f5;
-  margin-top: 40px;
-}
-
-.contact-section h2 {
-  text-align: center;
-  margin-bottom: 40px;
-  color: #333;
-  font-size: 32px;
-}
-
-.contact-container {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto;
-  gap: 30px;
-}
-
-.contact-info, .contact-form {
-  flex: 1;
-  min-width: 300px;
-}
-
-.contact-info h3, .contact-form h3 {
-  margin-bottom: 20px;
-  color: #0056b3;
-  font-size: 24px;
-}
-
-.contact-info p {
-  margin-bottom: 15px;
-  font-size: 16px;
-  line-height: 1.6;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group input, .form-group textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.submit-btn {
-  background-color: #0056b3;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.submit-btn:hover {
-  background-color: #003d82;
-}
-
-/* Responsive design pour la section contact */
-@media screen and (max-width: 768px) {
-  .contact-section {
-    padding: 40px 15px;
+    gap: 10px;
   }
   
-  .contact-container {
-    flex-direction: column;
-  }
-  
-  .contact-info, .contact-form {
-    width: 100%;
+  .water-item, .product-item {
+    width: 140px;
   }
 }
+
+/* Les styles pour la section Contact ont été supprimés */
