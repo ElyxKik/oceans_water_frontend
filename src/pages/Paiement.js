@@ -199,9 +199,14 @@ const Paiement = () => {
         
         // Ajouter l'email et le nom du client pour les commandes anonymes
         if (!isAuthenticated && formData.email) {
-          orderData.email_anonyme = formData.email;
-          orderData.client_anonyme = formData.full_name;
-          console.log('Informations client anonyme ajoutées:', orderData.client_anonyme, orderData.email_anonyme);
+          orderData.email = formData.email;
+          orderData.nom_complet = formData.full_name;
+          console.log('Informations client sans compte ajoutées:', orderData.nom_complet, orderData.email);
+        }
+        
+        // S'assurer que le nom du client est toujours envoyé, même pour les utilisateurs authentifiés
+        if (!orderData.nom_complet && formData.full_name) {
+          orderData.nom_complet = formData.full_name;
         }
         
         try {

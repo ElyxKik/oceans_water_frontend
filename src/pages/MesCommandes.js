@@ -34,7 +34,18 @@ const MesCommandes = () => {
         if (result.success) {
           if (Array.isArray(result.orders) && result.orders.length > 0) {
             console.log('Commandes trouvées:', result.orders.length);
-            setOrders(result.orders);
+            // Récupérer les détails complets (articles) pour chaque commande
+            const enrichedOrders = await Promise.all(result.orders.map(async (order) => {
+              // Si la commande n'a pas déjà des articles, aller chercher les détails
+              if (!order.articles || order.articles.length === 0) {
+                const detailRes = await orderService.getOrderById(order.id);
+                if (detailRes.success) {
+                  return { ...order, ...detailRes.order };
+                }
+              }
+              return order;
+            }));
+            setOrders(enrichedOrders);
           } else {
             console.log('Aucune commande trouvée ou format incorrect');
             setOrders([]);
@@ -175,18 +186,30 @@ const MesCommandes = () => {
             <div className="order-details">
               <h3 className="order-section-title">Articles commandés</h3>
               <ul className="order-items">
-                {order.articles && order.articles.length > 0 ? (
-                  order.articles.map((article, index) => (
+                {/* Vérifier différentes structures possibles pour les articles de commande */}
+                {(order.articles && order.articles.length > 0) || (order.items && order.items.length > 0) || (order.produits && order.produits.length > 0) ? (
+                  /* Utiliser les articles, items ou produits selon la structure disponible */
+                  (order.articles || order.items || order.produits).map((article, index) => (
                     <li key={index}>
                       <div className="article-info">
                         <div className="article-image">
-                          {article.produit && article.produit.image ? (
+                          {/* Gestion flexible de la structure du produit */}
+                          {(article.produit && article.produit.image) || article.image ? (
                             <img 
-                              src={article.produit.image.startsWith('http') ? article.produit.image : `https://via.placeholder.com/100x100?text=${encodeURIComponent(article.produit.nom || 'Produit')}`} 
-                              alt={article.produit.nom || 'Produit'} 
+                              src={
+                                // Gestion de l'image avec différentes structures possibles
+                                (article.produit && article.produit.image && article.produit.image.startsWith('http')) ? article.produit.image : 
+                                (article.image && article.image.startsWith('http')) ? article.image :
+                                `https://via.placeholder.com/100x100?text=${encodeURIComponent(
+                                  (article.produit && article.produit.nom) || article.nom || article.titre || 'Produit'
+                                )}`
+                              } 
+                              alt={(article.produit && article.produit.nom) || article.nom || article.titre || 'Produit'} 
                               onError={(e) => {
                                 e.target.onerror = null;
-                                e.target.src = `https://via.placeholder.com/100x100?text=${encodeURIComponent(article.produit.nom || 'Produit')}`;
+                                e.target.src = `https://via.placeholder.com/100x100?text=${encodeURIComponent(
+                                  (article.produit && article.produit.nom) || article.nom || article.titre || 'Produit'
+                                )}`;
                               }}
                             />
                           ) : (
@@ -195,13 +218,16 @@ const MesCommandes = () => {
                         </div>
                         <div className="article-details">
                           <h4>
-                            {article.produit && article.produit.nom ? article.produit.nom : 'Produit'} 
-                            {article.produit && article.produit.marque && `(${article.produit.marque})`}
+                            {/* Nom du produit avec différentes structures possibles */}
+                            {(article.produit && article.produit.nom) || article.nom || article.titre || 'Produit'} 
+                            {/* Marque du produit avec différentes structures possibles */}
+                            {(article.produit && article.produit.marque && `(${typeof article.produit.marque === 'object' ? article.produit.marque.nom : article.produit.marque})`) || 
+                             (article.marque && `(${typeof article.marque === 'object' ? article.marque.nom : article.marque})`)}
                           </h4>
                           <div className="article-meta">
-                            <span>Quantité: <strong>{article.quantite || 1}</strong></span>
+                            <span>Quantité: <strong>{article.quantite || article.quantity || 1}</strong></span>
                             <span>Prix unitaire: <strong>
-                              {article.prix_unitaire ? article.prix_unitaire.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") : '0'} FC
+                              {(article.prix_unitaire || article.prix || (article.produit && article.produit.prix) || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} FC
                             </strong></span>
                           </div>
                         </div>
