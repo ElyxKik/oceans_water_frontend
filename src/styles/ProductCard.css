@@ -10,6 +10,14 @@
   box-sizing: border-box;
 }
 
+/* Style pour le lien de produit */
+.product-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
+}
+
 .water-item:hover {
   transform: scale(1.05); /* Légère agrandissement au survol */
 }

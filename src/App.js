@@ -12,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import Boutique from './pages/Boutique';
 import CategoryProducts from './pages/CategoryProducts';
+import ProductDetail from './pages/ProductDetail';
 import MonPanier from './pages/MonPanier';
 import Connexion from './pages/Connexion';
 import Deconnexion from './pages/Deconnexion';
@@ -45,31 +46,32 @@ function App() {
             <Header />
             <TitleBanner />
             <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/achat.html" element={<Boutique />} />
-            <Route path="/boutique" element={<Boutique />} />
-            {/* Redirection des routes shop vers boutique */}
-            <Route path="/shop" element={<Boutique />} />
-            <Route path="/shop/:category" element={<Boutique />} />
-            <Route path="/shop/:category/:brand" element={<Boutique />} />
-            {/* New category products route */}
-            <Route path="/categorie/:categoryName" element={<CategoryProducts />} />
-            {/* Legacy shop routes for backward compatibility */}
-            <Route path="/boutique-biere.html" element={<Boutique />} />
-            <Route path="/boutique-jus.html" element={<Boutique />} />
-            <Route path="/Mon-panier.html" element={<MonPanier />} />
-            <Route path="/connexion.html" element={<Connexion />} />
-            <Route path="/deconnexion.html" element={<Deconnexion />} />
-            <Route path="/mes-commandes.html" element={<ProtectedRoute><MesCommandes /></ProtectedRoute>} />
-            <Route path="/mon-compte.html" element={<ProtectedRoute><MonCompte /></ProtectedRoute>} />
-            <Route path="/modifier-profil.html" element={<ProtectedRoute><ModifierProfil /></ProtectedRoute>} />
-            <Route path="/adresses.html" element={<ProtectedRoute><Adresses /></ProtectedRoute>} />
-            <Route path="/notifications.html" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
-            <Route path="/paiement.html" element={<Paiement />} />
-            <Route path="/confirmation-commande" element={<ConfirmationCommande />} />
-            <Route path="/support.html" element={<Support />} />
-            <Route path="/politique-de-confidentialite.html" element={<PolitiqueConfidentialite />} />
-            <Route path="/termes-cond.html" element={<TermesConditions />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/achat.html" element={<Boutique />} />
+              <Route path="/boutique" element={<Boutique />} />
+              {/* Redirection des routes shop vers boutique */}
+              <Route path="/shop" element={<Boutique />} />
+              <Route path="/shop/:category" element={<Boutique />} />
+              <Route path="/shop/:category/:brand" element={<Boutique />} />
+              {/* New category products route */}
+              <Route path="/categorie/:categoryName" element={<CategoryProducts />} />
+              <Route path="/produit/:id" element={<ProductDetail />} />
+              {/* Legacy shop routes for backward compatibility */}
+              <Route path="/boutique-biere.html" element={<Boutique />} />
+              <Route path="/boutique-jus.html" element={<Boutique />} />
+              <Route path="/Mon-panier.html" element={<MonPanier />} />
+              <Route path="/connexion.html" element={<Connexion />} />
+              <Route path="/deconnexion.html" element={<Deconnexion />} />
+              <Route path="/mes-commandes.html" element={<ProtectedRoute><MesCommandes /></ProtectedRoute>} />
+              <Route path="/mon-compte.html" element={<ProtectedRoute><MonCompte /></ProtectedRoute>} />
+              <Route path="/modifier-profil.html" element={<ProtectedRoute><ModifierProfil /></ProtectedRoute>} />
+              <Route path="/adresses.html" element={<ProtectedRoute><Adresses /></ProtectedRoute>} />
+              <Route path="/notifications.html" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+              <Route path="/paiement.html" element={<Paiement />} />
+              <Route path="/confirmation-commande" element={<ConfirmationCommande />} />
+              <Route path="/support.html" element={<Support />} />
+              <Route path="/politique-de-confidentialite.html" element={<PolitiqueConfidentialite />} />
+              <Route path="/termes-cond.html" element={<TermesConditions />} />
             </Routes>
             <Footer />
           </div>

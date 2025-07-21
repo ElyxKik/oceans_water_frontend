@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import '../styles/ProductCard.css';
 
@@ -47,6 +48,7 @@ const ProductCard = ({ product, onAddToCart }) => {
   // Gestion de l'ajout au panier
   const handleAddToCart = (e) => {
     e.preventDefault();
+    e.stopPropagation(); // Empêcher la propagation vers le lien parent
     // Use the provided onAddToCart function if available, otherwise use the context function
     if (onAddToCart) {
       onAddToCart(product);
@@ -88,42 +90,44 @@ const ProductCard = ({ product, onAddToCart }) => {
   };
 
   return (
-    <div className="water-item">
-      <img 
-        src={getImageUrl(product.image)} 
-        alt={`${productBrand}-${productTitle}`} 
-        onError={(e) => {
-          e.target.src = `https://via.placeholder.com/200x250/${getColorForBrand(productBrand)}/ffffff?text=${encodeURIComponent(productTitle)}`;
-        }}
-      />
-      <div className="product-overlay">
-        <div>
-          <h3 className="inisible-text">{productTitle}</h3>
-          <p className="inisible-text">{productDescription}</p>
-        </div>
-        <div className={`stock-indicator ${getStockClass()}`}>
-          {getStockMessage()}
-        </div>
-        <div className="action-row">
-          {stockDisponible > 0 ? (
-            <a 
-              href="#" 
-              className="buy-now-btn" 
-              data-id={`${productBrand}-${productId}`}
-              data-marque={productBrand}
-              data-title={`${productTitle} ${productDescription}`}
-              data-price={product.prix}
-              onClick={handleAddToCart}
-            >
-              Acheter
-            </a>
-          ) : (
-            <span className="out-of-stock-btn">Stock épuisé</span>
-          )}
-          <span className="prix-plus">{formattedPrice} FC</span>
+    <Link to={`/produit/${productId}`} className="product-link">
+      <div className="water-item">
+        <img 
+          src={getImageUrl(product.image)} 
+          alt={`${productBrand}-${productTitle}`} 
+          onError={(e) => {
+            e.target.src = `https://via.placeholder.com/200x250/${getColorForBrand(productBrand)}/ffffff?text=${encodeURIComponent(productTitle)}`;
+          }}
+        />
+        <div className="product-overlay">
+          <div>
+            <h3 className="inisible-text">{productTitle}</h3>
+            <p className="inisible-text">{productDescription}</p>
+          </div>
+          <div className={`stock-indicator ${getStockClass()}`}>
+            {getStockMessage()}
+          </div>
+          <div className="action-row">
+            {stockDisponible > 0 ? (
+              <a 
+                href="#" 
+                className="buy-now-btn" 
+                data-id={`${productBrand}-${productId}`}
+                data-marque={productBrand}
+                data-title={`${productTitle} ${productDescription}`}
+                data-price={product.prix}
+                onClick={handleAddToCart}
+              >
+                Acheter
+              </a>
+            ) : (
+              <span className="out-of-stock-btn">Stock épuisé</span>
+            )}
+            <span className="prix-plus">{formattedPrice} FC</span>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

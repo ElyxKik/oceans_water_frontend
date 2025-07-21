@@ -48,19 +48,21 @@ export const fetchApi = async (endpoint, options = {}) => {
     if (!response.ok) {
       let errorMessage = `Erreur ${response.status}: ${response.statusText}`;
       
-      // Cloner la réponse pour pouvoir la lire
-      const responseClone = response.clone();
+      // Créer deux clones distincts pour les deux tentatives de lecture
+      const jsonClone = response.clone();
+      const textClone = response.clone();
       
       try {
         // Essayer de parser la réponse d'erreur comme JSON
-        const errorBody = await responseClone.json();
+        const errorBody = await jsonClone.json();
         console.error('Données d\'erreur (JSON):', errorBody);
         // Construire un message d'erreur détaillé à partir du JSON
         errorMessage = JSON.stringify(errorBody);
-      } catch (e) {
+      } catch (jsonError) {
+        console.error('Erreur lors du parsing JSON:', jsonError);
         try {
           // Si ce n'est pas du JSON, lire comme du texte brut
-          const errorText = await responseClone.text();
+          const errorText = await textClone.text();
           console.error('Données d\'erreur (texte):', errorText);
           if (errorText) errorMessage = errorText;
         } catch (textError) {
@@ -130,7 +132,41 @@ export const productService = {
   getAllBrands: () => fetchApi('/api/v1/products/marques/'),
   
   // Récupérer les produits en vedette (les plus récents)
-  getFeatured: (limit = 4) => fetchApi(`/api/v1/products/produits/?ordering=-date_ajout&limit=${limit}`),
+  getFeatured: (limit = 4) => fetchApi(`/api/v1/products/produits/?limit=${limit}&ordering=-date_ajout`),
+  
+  // Récupérer les avis d'un produit
+  // Récupérer les avis d'un produit (les avis approuvés sont visibles publiquement)
+  getProductReviews: (productId) => {
+    // fetchApi ajoute automatiquement le token si présent ;
+    // même sans authentification, l'endpoint renvoie les avis approuvés
+    return fetchApi(`/api/v1/products/produits/${productId}/avis/`);
+  },
+  
+  // Ajouter un avis sur un produit
+  addReview: (productId, reviewData) => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      return Promise.reject(new Error('Authentification requise pour ajouter un avis'));
+    }
+    
+    return fetchApi(`/api/v1/products/produits/${productId}/ajouter_avis/`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(reviewData)
+    });
+  },
+  
+  // Récupérer tous les avis (pour les administrateurs)
+  getAllReviews: () => fetchApi('/api/v1/products/avis/'),
+  
+  // Approuver un avis (pour les administrateurs)
+  approveReview: (reviewId) => fetchApi(`/api/v1/products/avis/${reviewId}/`, {
+    method: 'PATCH',
+    body: JSON.stringify({ approuve: true })
+  })
 };
 
 /**
